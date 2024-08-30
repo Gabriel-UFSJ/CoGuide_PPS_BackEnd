@@ -12,7 +12,7 @@ async function bootstrap() {
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true, // Permitir credenciais (por exemplo, cookies)
   });
-  
+
   await app.listen(3000);
 }
 bootstrap();

@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { GroqCloudService } from './groq-cloud.service';
+import { GroqCloudService } from './groqCloud.service';
 
 describe('GroqCloudService', () => {
   let service: GroqCloudService;

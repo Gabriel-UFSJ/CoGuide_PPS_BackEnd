@@ -4,7 +4,7 @@ import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AuthModule } from './auth/auth.module';
-import { GroqCloudService } from './groq-cloud/groq-cloud.service';
+import { GroqCloudService } from './groq-cloud/groqCloud.service';
 import { ChatModule } from './chat/chat.module';
 
 @Module({
