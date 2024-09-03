@@ -1,5 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import GroqClient from 'groq-sdk';
+import * as fs from 'fs'
+import * as path from 'path';
 
 @Injectable()
 export class GroqCloudService {
@@ -61,6 +63,35 @@ export class GroqCloudService {
     } catch (error) {
       console.error('Error occurred while generating title:', error.message);
       return 'Untitled Chat';
+    }
+  }
+
+  async getSystemMessage(): Promise<string> {
+    try {
+      const markdownPath = 'C:\\Users\\gabri\\OneDrive\\Faculdade\\Programas\\2024.1\\PPS\\CoGuide_PPS_BackEnd\\storage\\output.md';
+
+      if (!fs.existsSync(markdownPath)) {
+        throw new Error(`Markdown file not found at path: ${markdownPath}`);
+      }
+
+      const systemMessage = await fs.promises.readFile(markdownPath, 'utf8');
+      
+      const systemPrompt = `
+      You are a technical assistant responsible for answering questions about the eSocial processes of the Brazilian federal government. Your main objective is to serve as an additional channel for responding to inquiries within a company that develops HR software for compliance with eSocial.
+
+      When providing responses:
+
+      1. **Citations Required:** Your answers must include citations of the relevant information and references used to support the response.
+      2. **Accuracy and Reliability:** Ensure that all responses are well-founded, accurate, and free from misinformation. Do not provide answers to questions if you do not have the correct information.
+      3. **Language Requirement:** All responses must be in Portuguese. Do not use any markup languages or special formatting as the system will display your response directly without interpretation.
+
+      **Context:** The context for your responses will be provided in the form of a markdown document.
+      `;
+
+      return systemPrompt + '\n\n' + systemMessage;
+    } catch (error) {
+      console.error('Error reading markdown file:', error);
+      throw new Error('Failed to load system message');
     }
   }
 }

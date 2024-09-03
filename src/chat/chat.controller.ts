@@ -58,6 +58,7 @@ export class ChatController {
   ) {
     let chat;
     const userId = req.user.id;
+    const systemMessage = await this.groqCloudService.getSystemMessage();
     if (id) {
       // Atualizar um chat existente
       chat = await this.chatService.getChatById(id);
@@ -76,12 +77,13 @@ export class ChatController {
         await this.groqCloudService.generateTitle(firstMessageContent);
       const response = await this.groqCloudService.getChatResponse(
         firstMessageContent,
-        [firstMessageContent],
+        [systemMessage, firstMessageContent],
       );
       const createChatDto = {
         userId: userId,
         title,
         messages: [
+          { role: 'system', content: systemMessage },
           { role: 'user', content: firstMessageContent },
           { role: 'assistant', content: response },
         ],
