@@ -7,7 +7,7 @@ async function bootstrap() {
 
   app.useGlobalPipes(new ValidationPipe());
   app.enableCors({
-    origin: 'http://localhost:5173', // Substitua pelo domínio do aplicativo
+    origin: 'http://localhost:4000', // Substitua pelo domínio do aplicativo
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true, // Permitir credenciais (por exemplo, cookies)

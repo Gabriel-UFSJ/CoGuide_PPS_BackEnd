@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+langchain
+joblib
+llama_parse
+langchain_community
+fastembed
+langchain-chroma
